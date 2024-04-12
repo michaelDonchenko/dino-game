@@ -20,12 +20,7 @@ export class Cactus {
 
   update() {
     this.positionX += this.speed
-    const randomXOffset = -2000 * Math.random() - this.width
-
-    if (this.positionX < randomXOffset) {
-      this.positionX = this.game.canvas.width + 200
-      this.speed = Math.random() * -4 - 5
-    }
+    this.resetCactus()
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -40,5 +35,14 @@ export class Cactus {
       this.width,
       this.height
     )
+  }
+
+  resetCactus() {
+    const randomXOffset = -2000 * Math.random() - this.width
+
+    if (this.positionX < randomXOffset) {
+      this.positionX = this.game.canvas.width + 200
+      this.speed = Math.random() * -4 - 5
+    }
   }
 }

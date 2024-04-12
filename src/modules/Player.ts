@@ -31,26 +31,11 @@ export class Player {
     this.positionX = 50
     this.positionY = this.game.groundLevel - this.height
 
-    window.addEventListener('keydown', (event) => {
-      if (event.code === 'Space') {
-        if (this.currentState !== 'jumping') {
-          this.jump()
-        }
-      }
-    })
+    this.addJumpingEventListener()
   }
 
   update(deltaTime: number) {
-    if (this.currentState === 'running' && this.frameTimer > this.frameInterval) {
-      this.frameTimer = 0
-      if (this.frameX < this.maxRunningFrames) {
-        this.frameX++
-      } else {
-        this.frameX = 0
-      }
-    } else {
-      this.frameTimer += deltaTime
-    }
+    this.runningAnimation(deltaTime)
 
     if (this.currentState === 'jumping') {
       this.velocity += 1
@@ -79,7 +64,30 @@ export class Player {
 
   jump() {
     this.currentState = 'jumping'
-    this.velocity = -20
+    this.velocity = -18
     this.frameX = 2
+  }
+
+  runningAnimation(deltaTime: number) {
+    if (this.currentState === 'running' && this.frameTimer > this.frameInterval) {
+      this.frameTimer = 0
+      if (this.frameX < this.maxRunningFrames) {
+        this.frameX++
+      } else {
+        this.frameX = 0
+      }
+    } else {
+      this.frameTimer += deltaTime
+    }
+  }
+
+  addJumpingEventListener() {
+    window.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        if (this.currentState !== 'jumping') {
+          this.jump()
+        }
+      }
+    })
   }
 }
