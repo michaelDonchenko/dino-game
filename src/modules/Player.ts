@@ -1,3 +1,4 @@
+import {Cactus} from './Cactus'
 import {Game} from './Game'
 
 export class Player {
@@ -46,6 +47,11 @@ export class Player {
       this.currentState = 'running'
       this.velocity = 0
     }
+
+    if (this.checkCollision(this.game.cactus)) {
+      this.game.gameOver = true
+      this.game.restartButton.classList.add('visible')
+    }
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -64,7 +70,7 @@ export class Player {
 
   jump() {
     this.currentState = 'jumping'
-    this.velocity = -18
+    this.velocity = -20
     this.frameX = 2
   }
 
@@ -89,5 +95,18 @@ export class Player {
         }
       }
     })
+  }
+
+  checkCollision(cactus: Cactus) {
+    if (
+      this.positionX < cactus.positionX + cactus.width &&
+      this.positionX + this.width > cactus.positionX &&
+      this.positionY < cactus.positionY + cactus.height &&
+      this.positionY + this.height > cactus.positionY
+    ) {
+      return true
+    }
+
+    return false
   }
 }

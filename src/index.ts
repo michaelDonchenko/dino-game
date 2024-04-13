@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
   canvas.style.width = '1000px'
   canvas.style.height = '500px'
 
-  const game = new Game(canvas, context)
+  const game = new Game(canvas, context, gameLoop)
 
   let lastTime = 0
 
@@ -28,7 +28,9 @@ window.addEventListener('load', () => {
     game.draw()
 
     // Call the game loop again
-    requestAnimationFrame(gameLoop)
+    if (!game.gameOver) {
+      requestAnimationFrame(gameLoop)
+    }
   }
 
   gameLoop(lastTime)

@@ -1,6 +1,7 @@
 import {Game} from './Game'
 
 export class Cactus {
+  public cactusDefaultPosition: number
   public width: number
   public height: number
   public positionX: number
@@ -10,17 +11,18 @@ export class Cactus {
 
   constructor(public game: Game) {
     this.game = game
+    this.cactusDefaultPosition = this.game.canvas.width + 500
     this.width = 50
     this.height = 96
-    this.positionX = this.game.canvas.width + 500
-    this.positionY = this.game.groundLevel - this.height
+    this.positionX = this.cactusDefaultPosition
+    this.positionY = this.game.groundLevel - this.height + 2
     this.speed = -5
     this.image = document.getElementById('cactus') as HTMLImageElement
   }
 
   update() {
     this.positionX += this.speed
-    this.resetCactus()
+    this.resetCondition()
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -37,7 +39,7 @@ export class Cactus {
     )
   }
 
-  resetCactus() {
+  resetCondition() {
     const randomXOffset = -2000 * Math.random() - this.width
 
     if (this.positionX < randomXOffset) {

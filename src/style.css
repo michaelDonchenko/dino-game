@@ -5,3 +5,20 @@
 img {
   display: none;
 }
+
+.relative-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.restart {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.visible {
+  display: inline;
+}
